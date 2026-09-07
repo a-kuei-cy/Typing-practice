@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>興嘉貓咪鍵盤大冒險</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">🐱</div>
+    <div>
+      <h1>興嘉貓咪鍵盤大冒險</h1>
+      <div class="sub">Sing Chia Cat Keyboard Adventure</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <button class="nav-btn" data-view="home">🏠 首頁</button>
+    <button class="nav-btn" data-view="game">🎮 開始冒險</button>
+    <button class="nav-btn" data-view="wardrobe">👗 更衣室</button>
+    <button class="nav-btn" data-view="leaderboard">🏆 排行榜</button>
+    <button class="nav-btn" data-view="admin">⚙️ 後臺管理</button>
+  </nav>
+</header>
+
+<main class="container">
+  <section id="home" class="view active">
+    <div class="hero card">
+      <div>
+        <span class="eyebrow">注音 × 英打 × 遊戲化學習</span>
+        <h2>和小貓一起守護魚乾王國！</h2>
+        <p>練習臺灣大千式注音鍵盤、英文基準鍵與校園單字，累積小魚乾、解鎖造型、挑戰巨龍 Boss。</p>
+        <div class="hero-actions">
+          <button class="primary" data-view="game">🚀 開始冒險</button>
+          <button class="secondary" data-view="leaderboard">🏆 看英雄榜</button>
+        </div>
+      </div>
+      <div class="hero-cat">
+        <div id="homeCat" class="cat-art">🐱</div>
+        <div class="fish-pill">🐟 <span id="fishCount">0</span></div>
+      </div>
+    </div>
+
+    <div class="student-bar card">
+      <h3>👤 學生資訊</h3>
+      <div class="form-grid">
+        <label>班級<input id="studentClass" placeholder="例如：一年1班"></label>
+        <label>座號<input id="studentNo" placeholder="例如：12" inputmode="numeric"></label>
+        <label>姓名<input id="studentName" placeholder="請輸入姓名"></label>
+        <button id="saveStudentBtn" class="primary">儲存學生資料</button>
+      </div>
+    </div>
+
+    <div class="mode-grid">
+      <article class="mode-card card">
+        <div class="mode-icon">🀄</div>
+        <h3>貓咪注音大冒險</h3>
+        <p>聲母、介音、韻母、聲調與常見詞彙。</p>
+        <button class="primary start-mode" data-mode="bopomofo">進入注音島</button>
+      </article>
+      <article class="mode-card card">
+        <div class="mode-icon">🔤</div>
+        <h3>貓咪英打大冒險</h3>
+        <p>從 ASDF JKL; 基準鍵到常見校園單字。</p>
+        <button class="primary start-mode" data-mode="english">進入英打島</button>
+      </article>
+      <article class="mode-card card boss">
+        <div class="mode-icon">👑</div>
+        <h3>守護魚乾魔王戰</h3>
+        <p>混合注音與英打，擊退守護魚乾的巨龍。</p>
+        <button class="primary start-mode" data-mode="boss">挑戰 Boss</button>
+      </article>
+    </div>
+  </section>
+
+  <section id="game" class="view">
+    <div class="game-head card">
+      <div>
+        <span id="modeBadge" class="badge">模式</span>
+        <h2 id="gameTitle">貓咪鍵盤大冒險</h2>
+        <p id="gameSubtitle">準備開始</p>
+      </div>
+      <div class="stats">
+        <div><b id="score">0</b><span>分數</span></div>
+        <div><b id="combo">0</b><span>連擊</span></div>
+        <div><b id="accuracy">100%</b><span>正確率</span></div>
+        <div><b id="wpm">0</b><span>WPM</span></div>
+      </div>
+    </div>
+
+    <div class="battle card">
+      <div class="battle-row">
+        <div id="playerCat" class="cat-art big">🐱</div>
+        <div class="target-area">
+          <div id="lessonLabel" class="small">目前任務</div>
+          <div id="targetText" class="target">按「開始」進行冒險</div>
+          <div id="targetHint" class="hint">目標按鍵會自動發光</div>
+          <div class="progress"><div id="progressBar"></div></div>
+        </div>
+        <div id="enemy" class="enemy">🐉</div>
+      </div>
+      <div class="game-actions">
+        <select id="levelSelect"></select>
+        <button id="startGameBtn" class="primary">▶ 開始</button>
+        <button id="restartGameBtn" class="secondary">↻ 重來</button>
+        <button id="soundBtn" class="secondary">🔊 音效開</button>
+      </div>
+    </div>
+
+    <div id="keyboard" class="keyboard card"></div>
+  </section>
+
+  <section id="wardrobe" class="view">
+    <div class="card">
+      <h2>👗 貓咪更衣室</h2>
+      <p>使用闖關獲得的小魚乾解鎖造型。選擇後會自動儲存在目前瀏覽器。</p>
+      <div class="wardrobe-preview">
+        <div id="wardrobeCat" class="cat-art giant">🐱</div>
+        <div class="fish-pill">🐟 <span id="wardrobeFish">0</span></div>
+      </div>
+      <h3>貓咪花色</h3>
+      <div id="catOptions" class="shop-grid"></div>
+      <h3>頭飾配件</h3>
+      <div id="accessoryOptions" class="shop-grid"></div>
+    </div>
+  </section>
+
+  <section id="leaderboard" class="view">
+    <div class="card">
+      <div class="section-head">
+        <div>
+          <h2>🏆 即時英雄排行榜</h2>
+          <p>可依班級與模式篩選，預設依分數、WPM 排序。</p>
+        </div>
+        <button id="refreshLeaderboardBtn" class="primary">重新整理</button>
+      </div>
+      <div class="filters">
+        <input id="lbClass" placeholder="班級（留空=全部）">
+        <select id="lbMode">
+          <option value="">全部模式</option>
+          <option value="bopomofo">注音</option>
+          <option value="english">英打</option>
+          <option value="boss">魔王戰</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>班級</th><th>姓名</th><th>模式</th><th>關卡</th><th>分數</th><th>WPM</th><th>正確率</th><th>連擊</th></tr></thead>
+          <tbody id="leaderboardBody"><tr><td colspan="9">尚未載入</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="view">
+    <div id="adminLogin" class="card narrow">
+      <h2>⚙️ 教師後臺管理</h2>
+      <label>管理密碼<input id="adminPassword" type="password" placeholder="請輸入管理密碼"></label>
+      <button id="adminLoginBtn" class="primary wide">登入</button>
+      <div id="adminLoginMsg" class="msg"></div>
+    </div>
+
+    <div id="adminPanel" class="card hidden">
+      <div class="section-head">
+        <div><h2>📋 成績管理中心</h2><p>搜尋、編修、補登、刪除、匯出 CSV。</p></div>
+        <div class="actions">
+          <button id="adminRefreshBtn" class="primary">重新整理</button>
+          <button id="addScoreBtn" class="secondary">＋ 手動補登</button>
+          <button id="exportCsvBtn" class="secondary">⬇ 匯出 CSV</button>
+          <button id="adminLogoutBtn" class="danger">登出</button>
+        </div>
+      </div>
+      <div class="filters">
+        <input id="adminClassFilter" placeholder="班級">
+        <select id="adminModeFilter">
+          <option value="">全部模式</option>
+          <option value="bopomofo">注音</option>
+          <option value="english">英打</option>
+          <option value="boss">魔王戰</option>
+        </select>
+        <input id="adminNameFilter" placeholder="學生姓名關鍵字">
+      </div>
+      <div id="adminSummary" class="summary-grid"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>時間</th><th>班級</th><th>座號</th><th>姓名</th><th>模式</th><th>關卡</th><th>分數</th><th>WPM</th><th>正確率</th><th>連擊</th><th>操作</th></tr></thead>
+          <tbody id="adminBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="resultModal" class="modal hidden">
+  <div class="modal-box">
+    <button class="modal-x" data-close="resultModal">×</button>
+    <div class="celebrate">🎉🐱🐟</div>
+    <h2>關卡完成！</h2>
+    <div id="resultStats" class="result-grid"></div>
+    <div class="modal-actions">
+      <button id="uploadScoreBtn" class="primary">📤 上傳成績到試算表</button>
+      <button class="secondary" data-close="resultModal">稍後再說</button>
+    </div>
+    <div id="uploadMsg" class="msg"></div>
+  </div>
+</div>
+
+<div id="editModal" class="modal hidden">
+  <div class="modal-box">
+    <button class="modal-x" data-close="editModal">×</button>
+    <h2 id="editTitle">編修成績</h2>
+    <div class="form-grid two">
+      <label>班級<input id="editClass"></label>
+      <label>座號<input id="editNo"></label>
+      <label>姓名<input id="editName"></label>
+      <label>模式<select id="editMode"><option value="bopomofo">注音</option><option value="english">英打</option><option value="boss">魔王戰</option></select></label>
+      <label>關卡<input id="editLevel"></label>
+      <label>分數<input id="editScore" type="number"></label>
+      <label>WPM<input id="editWpm" type="number" step="0.1"></label>
+      <label>正確率<input id="editAccuracy" type="number" step="0.1"></label>
+      <label>連擊<input id="editCombo" type="number"></label>
+      <label>秒數<input id="editDuration" type="number" step="0.1"></label>
+    </div>
+    <div class="modal-actions">
+      <button id="saveEditBtn" class="primary">儲存</button>
+      <button class="secondary" data-close="editModal">取消</button>
+    </div>
+    <div id="editMsg" class="msg"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
